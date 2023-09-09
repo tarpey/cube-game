@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cube Game</title>
+    <style lang="scss">
+      @import "style.scss";
+    </style>
+  </head>
+  <body id="game">
+    <div id="ui">
+      <h3><span class="score">0</span></h3>
+      <h3><span class="modifier">None</h3>
+    </div>
+    <div id="wrapper">
+      <div id="paused" class="container">
+        <h1>PAUSED</h1>
+      </div>
+      <div id="gameOver" class="container">
+        <h1>GAME OVER</h1>
+        <h2>You scored <span class="score">0</span></h2>
+        <div id="form">
+          <label hidden for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="NAME"
+            maxlength="6"
+            autocapitalize="true"
+            autocomplete="false"
+            autofocus
+            required
+            onfocus="this.setSelectionRange(this.value.length,this.value.length);"
+          />
+          <div class="buttons">
+            <button id="submit">Submit</button>
+          </div>
+        </div>
+
+        <!-- High Scores -->
+        <div id="scores">
+          <div id="tables">
+            <div>
+              <h3>Today</h3>
+              <table id="today"></table>
+            </div>
+            <div>
+              <h3>All time</h3>
+              <table id="allTime"></table>
+            </div>
+          </div>
+          <div class="buttons">
+            <a href="game.html">Play Again</a>
+            <a href="index.html">Exit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/scenes/game.js"></script>
+  </body>
+</html>

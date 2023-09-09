@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  font-family: "Press Start 2P", sans-serif;
+  text-transform: uppercase;
+}
+
+body {
+  background: #050439;
+  color: #ffffff;
+}
+
+#wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
+  transition: opacity 0.5s;
+
+  h2 {
+    margin-bottom: 50px;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  a,
+  button {
+    text-decoration: none;
+    background: transparent;
+    border: 4px solid #ff5b00;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.1s;
+    &:hover {
+      cursor: pointer;
+      background: #ff5b00;
+    }
+  }
+}
+
+h1 {
+  font-size: 80px;
+}
+
+h2 {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#splash #instructions {
+  margin-bottom: 50px;
+}
+
+#splash #instructions p {
+  margin: 0px 0;
+}
+
+#splash h3 {
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+}
+
+#splash ul {
+  margin: 0 0 40px;
+  padding: 0;
+  list-style: none;
+}
+
+#splash li {
+  margin: 10px 0;
+}
+
+#splash button:hover {
+}
+
+#ui {
+  position: absolute;
+  h3 {
+    margin: 20px;
+  }
+
+  .score:before {
+    content: "Score ";
+    color: gold;
+  }
+
+  .modifier:before {
+    content: "Modifier ";
+    color: gold;
+  }
+}
+
+// Styling for the main game
+#game {
+  background: #112233;
+
+  // Hide the container by default
+  .container {
+    opacity: 0;
+    display: none;
+
+    #form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      transition: opacity 0.5s;
+    }
+
+    input {
+      width: 300px;
+      outline: none;
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+      background: transparent;
+      border: 4px solid #ffffff;
+      color: #ffffff;
+      padding: 20px 0;
+      border-radius: 10px;
+    }
+
+    #scores {
+      opacity: 0;
+      display: none;
+      flex-direction: column;
+      transition: opacity 0.5s;
+
+      h3 {
+        margin-bottom: 20px;
+      }
+
+      #tables {
+        display: flex;
+        gap: 50px;
+        margin-bottom: 50px;
+        div {
+          flex-grow: 1;
+        }
+      }
+    }
+
+    #scores table {
+      width: 100%;
+      th,
+      td {
+        padding: 5px;
+      }
+
+      tr.highlight td {
+        color: #ff5b00;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      * {
+        flex-grow: 1;
+        flex-basis: 0;
+      }
+    }
+  }
+}
+
+:disabled,
+button:disabled {
+  opacity: 0.5;
+  &:hover {
+    cursor: not-allowed;
+  }
+}
