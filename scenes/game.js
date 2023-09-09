@@ -3,7 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { createClient } from "@supabase/supabase-js";
 import { endOfDay, startOfDay } from "date-fns";
 import Filter from "bad-words";
-import { pl } from "date-fns/locale";
+import modifierTextureFile from "../textures/modifier.png";
 
 // Supabase config
 const supabaseUrl = import.meta.env.VITE_SUPERBASE_URL;
@@ -58,7 +58,7 @@ document.body.appendChild(renderer.domElement);
 
 // Setup  textures
 const textureLoader = new THREE.TextureLoader();
-const modifierTexture = textureLoader.load("../textures/modifier.png");
+const modifierTexture = textureLoader.load(modifierTextureFile);
 
 // Reusable Box class
 class Cube extends THREE.Mesh {
