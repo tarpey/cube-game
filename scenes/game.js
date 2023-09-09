@@ -497,6 +497,7 @@ function animate() {
 
     // Modify the game when the player colliers with a modifier cube
     if (collision({ cube1: player, cube2: modifier })) {
+      modifier.position.y = -100;
       scene.remove(modifier);
 
       setTimeout(() => {
