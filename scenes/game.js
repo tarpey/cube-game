@@ -34,7 +34,7 @@ let camera = new THREE.PerspectiveCamera(
 );
 
 // Camera setup
-camera.position.set(3, 6, 12);
+camera.position.set(3, 10, 17);
 
 // Lighting
 const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -231,7 +231,7 @@ window.addEventListener("keydown", (event) => {
       if (!player.jumping) {
         player.jumping = true;
         player.velocity.y = 0.15;
-        // score = score - 10;
+        score = score - 2;
         jumps++;
       }
       break;
@@ -323,7 +323,6 @@ function gameOver() {
   }, "250");
 
   const nameInput = document.querySelector("input[id='name']");
-  const name = document.querySelector("input[id='name']").value;
   const submitButton = document.querySelector("button#submit");
 
   // Use a previously given name, if available
@@ -331,10 +330,12 @@ function gameOver() {
     nameInput.value = localStorage.getItem("cubey-name");
 
   // Fire when the user submits their score
-  submitButton.addEventListener("click", async () => endGame());
-  nameInput.addEventListener("keyup", async () => {
+  submitButton.addEventListener("click", async () => {
+    await endGame();
+  });
+  nameInput.addEventListener("keyup", async (event) => {
     if (event.key === "Enter") {
-      endGame();
+      await endGame();
     }
   });
 }
@@ -355,10 +356,13 @@ async function endGame() {
   // Filter name for profanity
   let filter = new Filter();
   let nameFiltered = filter.clean(nameInput.value);
-
   localStorage.setItem("cubey-name", nameFiltered);
+
+  // Disable form controls
   nameInput.disabled = true;
   submitButton.disabled = true;
+
+  // Submit the score
   const highScores = await submitScore(nameFiltered, score);
 
   form.style.opacity = "0";
@@ -411,6 +415,7 @@ function togglePause(display = false) {
     pauseContainer.style.opacity = display ? "1" : "0";
   }, "250");
 }
+
 function animate() {
   const animationId = requestAnimationFrame(animate);
   renderer.render(scene, camera);
@@ -450,6 +455,7 @@ function animate() {
     // Game over when there's a collision of the player leaves the platform
     if (player.position.y < -50 || collision({ cube1: player, cube2: enemy })) {
       // Freeze the animation loop
+      player.position.y = 100;
       cancelAnimationFrame(animationId);
 
       // Stop the timer
@@ -467,7 +473,7 @@ function animate() {
 
   // Spawn enemies
   if (document.hasFocus() && frames % enemySpawnRate === 0) {
-    if (enemySpawnRate > 20) enemySpawnRate -= 1;
+    if (enemySpawnRate > 20) enemySpawnRate -= 20;
     const enemy = new Cube({
       width: 1,
       height: 1,
@@ -480,7 +486,7 @@ function animate() {
       velocity: {
         x: 0,
         y: 0,
-        z: 0.05,
+        z: 0.25,
       },
       color: getRandomColour(),
       zAcceleration: true,
@@ -505,7 +511,7 @@ function animate() {
         const modifierText = document.querySelector("#ui span.modifier");
 
         // Select a random modifier
-        const modifierType = getRandomNumber(1, score > 200 ? 8 : 7);
+        const modifierType = getRandomNumber(1, score > 500 ? 8 : 7);
         switch (modifierType) {
           case 1:
             // 2x width
@@ -586,6 +592,7 @@ function animate() {
 
         setTimeout(() => {
           modifierText.innerHTML = "None";
+          scoreMultiplier = 1;
         }, "3000");
       }, "500");
     }
@@ -596,7 +603,7 @@ function animate() {
   });
 
   // Spawn modifiers
-  if (document.hasFocus() && score > 5 && frames % modifierSpawnRate === 0) {
+  if (document.hasFocus() && frames % modifierSpawnRate === 0) {
     const modifier = new Cube({
       width: 1,
       height: 1,
@@ -609,7 +616,7 @@ function animate() {
       velocity: {
         x: 0,
         y: 0,
-        z: 0.05,
+        z: 0.25,
       },
       color: "gold",
       zAcceleration: true,
